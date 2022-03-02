@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+
+<div>
+    <p>Username: <strong>{{username}}</strong></p>
+</div>
+
+
+<div>
+    <!-- Button trigger modal reset password -->
+    <button type="button" class="btn btn-info btn-setting" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+    Reset password
+    </button>
+    <!-- Modal reset password -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reset password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/settings" method="post">
+                <input hidden name="form" value="reset_password_form">
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Original password" type="password">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New password" type="password">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="new_confirmation" name="new_confirmation" placeholder="Confirm new password" type="password">
+                </div>
+                <div class="password-requirement">
+                    <p>Password should be: </p>
+                    <p> 1) At Least One Capital Letter</p>
+                    <p> 2) At Least One Number </p>
+                    <p> 3) At Least One Special character</p>
+                    <p> 4) 8 - 18 characters.</p>
+                </div>
+                <button class="btn btn-primary" type="submit">Reset</button>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="settings-option">
+    <!-- Button trigger modal add cash -->
+    <button type="button" class="btn btn-info btn-setting" data-bs-toggle="modal" data-bs-target="#addCashModal">
+    Add cash
+    </button>
+    <!-- Modal add cash -->
+    <div class="modal fade" id="addCashModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add cash</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>Current Cash: <strong>{{usd(cash)}}</strong></p>
+            <p>Amount to add: </p>
+            <form action="/settings" method="post">
+                <input hidden name="form" value="add_cash_form">
+                <div class="mb-3">
+                    <input class="form-control mx-auto w-auto" id="add_cash" name="add_cash" placeholder="" type="number">
+                </div>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

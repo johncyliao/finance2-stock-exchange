@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+    <form action="/history" method="post" class="form-inline">
+        <!--select symbol-->
+        <select name="symbol" class="" id="" aria-label="Default select example" >
+            <option disabled selected value="" style="color:lightgray;">Symbol</option>
+            {% for symbol in symbols %}
+                <option>{{ symbol["symbol"] }}</option>
+            {% endfor %}
+        </select>
+        <!--select type-->
+        <select name="type" class="" id="" aria-label="Default select example" >
+            <option disabled selected value="" style="color:lightgray;">Type</option>
+            <option>Buy</option>
+            <option>Sell</option>
+        </select>
+        <!--sell button/ submit form-->
+        <button class="btn btn-primary" type="submit" id="">Filter</button>
+    </form>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Symbol</th>
+                <th scope="col">Type</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ transaction["symbol"] }}</td>
+                <td>{{ transaction["type"] }}</td>
+                <td>{{ transaction["shares"] }}</td>
+                <td>{{ usd(transaction["price"]) }}</td>
+                <td>{{ transaction["time"] }}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+
+{% endblock %}

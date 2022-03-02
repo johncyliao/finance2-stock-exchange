@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    
+    <!--choose the stock to sell-->
+    <form action="/sell" method="post">
+        <!--choose symbol-->
+        <select name="symbol" class="form-control mx-auto w-auto" aria-label="Default select example" id="select-symbol-sell">
+            <option disabled selected value="" style="color:lightgray;">Select stock</option>
+            {% for symbol in symbols %}
+                <option>{{ symbol["symbol"] }}</option>
+            {% endfor %}
+        </select>
+        <!--choose quantity-->
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="shares" placeholder="Shares" type="number" id="input-shares-sell">
+        <!--sell button/ submit form-->
+        <button class="btn btn-primary" type="submit" id="btn-sell">Sell</button>
+    </form>
+
+    <!--choose the amount of shares to sell-->
+    
+{% endblock %}

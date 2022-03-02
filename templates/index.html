@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Price</th>
+            <th scope="col">TOTAL</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks%}
+        <tr>
+            <td>{{ stock["symbol"] }}</td>
+            <td>{{ stock["name"] }}</td>
+            <td>{{ stock["total_share"] }}</td>
+            <td>{{ usd(real_price[stock["symbol"]]) }}</td>
+            <td>{{ usd(stock["total_share"] * real_price[stock["symbol"]]) }}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-index" data-bs-toggle="modal" data-bs-target="#indexBuyModal" id="sell-btn-">Buy</button>
+                <!-- Modal buy stock -->
+                <div class="modal fade" id="indexBuyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Buy {{ stock["symbol"] }}</b></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/" method="post">
+                            <input hidden name="buy_symbol" value="">
+                            <div class="mb-3">
+                                <input class="form-control mx-auto w-auto" id="buy_share" name="buy_share" placeholder="Shares" type="number">
+                            </div>
+                            <button class="btn btn-success" type="submit">Confirm</button>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+
+                <b> / </b>
+                
+                <button type="button" class="btn btn-danger btn-index" data-bs-toggle="modal" data-bs-target="#indexSellModal">Sell</button>
+                <!-- Modal sell -->
+                <div class="modal fade" id="indexSellModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sell {{ stock["symbol"] }}</b></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/" method="post">
+                            <input hidden name="sell_symbol" value="">
+                            <div class="mb-3">
+                                <input class="form-control mx-auto w-auto" id="sell_share" name="sell_share" placeholder="Shares" type="number">
+                            </div>
+                            <button class="btn btn-danger" type="submit">Confirm</button>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+            </td>
+        </tr>
+        {%endfor%}
+        <tr class="t-strong">
+            <td colspan="3"></td>
+            <td>Cash</td>
+            <td>{{ usd(cash) }}</td>
+        </tr>
+    </tbody>
+
+    <tfoot class="t-strong">
+        <tr>
+            <td colspan="3"></td>
+            <td>TOTAL</td>
+            <td>{{ usd(total) }}</td>
+        </tr>
+    </tfoot>
+
+</table>
+
+
+{% endblock %}
